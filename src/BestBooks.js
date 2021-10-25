@@ -1,5 +1,5 @@
 import React from 'react';
-import Carousel from 'react-bootstrap/Carousel';
+import Books from './components/Books'
 import axios from 'axios';
 
 class BestBooks extends React.Component {
@@ -17,11 +17,7 @@ class BestBooks extends React.Component {
     axios.get(bookURl)
     .then(bookObj => bookObj.data)
     .then(data => this.setState({books:data}))
-     
-  
-    
-    
-      .catch(error => console.log('error', error.message));
+    .catch(error => console.log('error', error.message));
       
     
   }
@@ -35,29 +31,9 @@ class BestBooks extends React.Component {
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
 
-        {this.state.books.length ?  this.state.books.map((item,idx) => {
-          // <Carousel activeIndex={index} onSelect={handleSelect}>
-            <Carousel>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="holder.js/800x400?text=First slide&bg=373940"
-              alt="First slide"
-            />
-            <Carousel.Caption>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          
-    
-        </Carousel>
-        })
-          (
-          <p>Book Carousel coming soon</p>
-        ) : (
-          <h3>No Books Found :(</h3>
-        )}
+        {this.state.books.length ?  this.state.books.map((item,idx) => 
+          <Books title={item.title} description={item.description} status={item.status} email={item.email}/>)
+          : <h2>No Books Located</h2>}
         
       </>
     )
