@@ -12,7 +12,7 @@ class BestBooks extends React.Component {
   
 
   componentDidMount() {
-    let bookURl = `http://localhost:3001/books`;
+    let bookURl = `http://localhost:3001/books?email=cwrarig20@gmail.com`;
     
     axios.get(bookURl)
     .then(bookObj => bookObj.data)
