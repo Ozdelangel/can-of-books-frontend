@@ -1,5 +1,5 @@
 import React from 'react';
-import Books from './components/Books'
+import Carousel from 'react-bootstrap/Carousel';
 import axios from 'axios';
 
 class BestBooks extends React.Component {
@@ -30,10 +30,18 @@ class BestBooks extends React.Component {
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-
+        <Carousel>
         {this.state.books.length ?  this.state.books.map((item,idx) => 
-          <Books title={item.title} description={item.description} status={item.status} email={item.email}/>)
+                          
+                          <Carousel.Item>
+                            <Carousel.Caption>
+                              <h3>{item.title}</h3>
+                              <p>{item.description}</p>
+                            </Carousel.Caption>
+                          </Carousel.Item>
+                        )
           : <h2>No Books Located</h2>}
+          </Carousel>
         
       </>
     )
