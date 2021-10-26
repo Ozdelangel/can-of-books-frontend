@@ -17,24 +17,22 @@ class BestBooks extends React.Component {
     axios.get(bookURl)
     .then(bookObj => bookObj.data)
     .then(data => this.setState({books:data}))
+  
     .catch(error => console.log('error', error.message));
-    console.log(this.state.books);
-      
-    
   }
   /* TODO: Make a GET request to your API to fetch books for the logged in user  */
 
   render() {
 
     /* TODO: render user's books in a Carousel */
-
+    console.log(this.state.books);
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
         <Carousel>
-        {this.state.books.length ?  this.state.books.map((item,idx) => 
-                          
-                          <Carousel.Item>
+        {this.state.books.length > 0 ?  this.state.books.map(item => 
+          
+                          <Carousel.Item key ={item._id}>
                             <Carousel.Caption>
                               <h3>{item.title}</h3>
                               <p>{item.description}</p>
