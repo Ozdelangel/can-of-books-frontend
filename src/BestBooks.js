@@ -33,9 +33,15 @@ class BestBooks extends React.Component {
         {this.state.books.length > 0 ?  this.state.books.map(item => 
           
                           <Carousel.Item key ={item._id}>
+                              <img
+                                className="d-block w-100"
+                                src='https://via.placeholder.com/150'
+                                alt="First slide"
+                              />
                             <Carousel.Caption>
                               <h3>{item.title}</h3>
                               <p>{item.description}</p>
+                              <h5>{item.email}</h5>
                             </Carousel.Caption>
                           </Carousel.Item>
                           
