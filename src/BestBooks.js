@@ -18,6 +18,7 @@ class BestBooks extends React.Component {
     .then(bookObj => bookObj.data)
     .then(data => this.setState({books:data}))
     .catch(error => console.log('error', error.message));
+    console.log(this.state.books);
       
     
   }
@@ -39,6 +40,7 @@ class BestBooks extends React.Component {
                               <p>{item.description}</p>
                             </Carousel.Caption>
                           </Carousel.Item>
+                          
                         )
           : <h2>No Books Located</h2>}
           </Carousel>
