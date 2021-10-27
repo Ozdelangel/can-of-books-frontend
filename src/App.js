@@ -4,6 +4,7 @@ import Footer from './Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BestBooks from './BestBooks.js';
 import Profile from './Profile';
+import LoginForm from './LoginForm';
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,10 +23,9 @@ class App extends React.Component {
     }
   }
 
-  loginHandler = (user) => {
+  loginHandler = () => {
     this.setState({
-      user,
-      loginForm:'10',
+      loginForm: '1',
     })
   }
 
@@ -35,18 +35,33 @@ class App extends React.Component {
     })
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('click');
+    this.setState({
+      email: event.target.email.value,
+      userName: event.target.name.value,
+      loginForm: null,
+      user:'1',
+        })
+  }
+
+
+
   render() {
+    console.log(this.state);
     return (
+      
       <>
         <Router>
           <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler} loginForm={this.state.loginForm} email={this.state.email} userName={this.state.userName}/>
-          
+          {this.state.loginForm && <LoginForm handleSubmit={this.handleSubmit} />}
           <Switch>
             <Route exact path="/">
-              <BestBooks/>
+              {this.state.user && <BestBooks/>}
             </Route>
             <Route exact path="/profile">
-              <Profile/>
+              <Profile email={this.state.email} userName={this.state.userName}/>
             </Route>
               {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
             
@@ -56,6 +71,7 @@ class App extends React.Component {
         </Router>
       </>
     )
+    
   }
 }
 

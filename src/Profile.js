@@ -8,8 +8,8 @@ class Profile extends Component {
     return( 
       <>
     <img src='https://via.placeholder.com/150'alt="Pic"/>
-    <p>name:</p>
-    <p>email:</p>
+    <p>name: {this.props.userName}</p>
+    <p>email:{this.props.email}</p>
     </>
     )
   }
