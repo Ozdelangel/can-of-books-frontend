@@ -13,7 +13,7 @@ class Header extends React.Component {
         <Navbar.Brand>My Favorite Books</Navbar.Brand>
         <NavItem><Link to="/" className="nav-link">Home</Link></NavItem>
         {this.props.user && <NavItem><Link to="/profile" className="nav-link">Profile</Link></NavItem>}
-        <NavItem><LoginButton onLogin={this.props.onLogin}/></NavItem>
+        <NavItem><LoginButton onLogin={this.props.onLogin} loginForm={this.props.loginForm} email={this.props.email} userName={this.props.userName}/></NavItem>
         {this.props.user && <NavItem><LogoutButton onLogout={this.props.onLogout}/></NavItem>}
       </Navbar>
     )
