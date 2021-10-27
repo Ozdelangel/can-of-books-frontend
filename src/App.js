@@ -16,12 +16,16 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: null,
+      loginForm: null,
+      email: '',
+      userName:''
     }
   }
 
   loginHandler = (user) => {
     this.setState({
       user,
+      loginForm:'10',
     })
   }
 
@@ -35,7 +39,7 @@ class App extends React.Component {
     return (
       <>
         <Router>
-          <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler} />
+          <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler} loginForm={this.state.loginForm} email={this.state.email} userName={this.state.userName}/>
           
           <Switch>
             <Route exact path="/">
