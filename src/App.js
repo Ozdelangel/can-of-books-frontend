@@ -5,11 +5,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import BestBooks from './BestBooks.js';
 import Profile from './Profile';
 import LoginForm from './LoginForm';
+import AddBook from './AddBook';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
+import axios from 'axios';
 
 class App extends React.Component {
 
@@ -46,8 +48,6 @@ class App extends React.Component {
         })
   }
 
-
-
   render() {
     console.log(this.state);
     return (
@@ -64,7 +64,9 @@ class App extends React.Component {
               <Profile email={this.state.email} userName={this.state.userName}/>
             </Route>
               {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
-            
+            <Route exact path="/">
+              <AddBook email={this.state.email} />
+            </Route>
           </Switch>
           
           <Footer />
