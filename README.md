@@ -56,3 +56,5 @@ This application displays Books a user has stored in the application
 ## Credit and Collaborations
 
 ![WRRC](WRRCCan.png)
+
+![UML](WireFrame_Uml.png)
