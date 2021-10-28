@@ -1,6 +1,8 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import axios from 'axios';
+import AddBook from './AddBook';
+
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -22,6 +24,14 @@ class BestBooks extends React.Component {
   }
   /* TODO: Make a GET request to your API to fetch books for the logged in user  */
 
+  handlePost = async (newBook) => {
+    console.log(newBook);
+    let URL = `${process.env.REACT_APP_SERVER}/books`;
+    let postRes = await axios.post(URL, newBook);
+    console.log('postRes', postRes.data);
+    this.setState({ books: [...this.state.books, postRes.data] });
+  }
+
   render() {
 
     /* TODO: render user's books in a Carousel */
@@ -29,26 +39,26 @@ class BestBooks extends React.Component {
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
+        <AddBook email={this.state.email} handlePost={this.handlePost} />
+        
         <Carousel>
         {this.state.books.length > 0 ?  this.state.books.map(item => 
-          
-                          <Carousel.Item key ={item._id}>
-                              <img
-                                className="d-block w-100"
-                                src='https://via.placeholder.com/150'
-                                alt="First slide"
-                              />
-                            <Carousel.Caption>
-                              <h3>{item.title}</h3>
-                              <p>{item.description}</p>
-                              <h5>{item.email}</h5>
-                            </Carousel.Caption>
-                          </Carousel.Item>
+          <Carousel.Item key ={item._id}>
+            <img
+              className="d-block w-100"
+              src='https://via.placeholder.com/150'
+              alt="First slide"
+            />
+          <Carousel.Caption>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            <h5>{item.email}</h5>
+          </Carousel.Caption>
+          </Carousel.Item>
                           
                         )
           : <h2>No Books Located</h2>}
-          </Carousel>
-        
+        </Carousel>
       </>
     )
   }
