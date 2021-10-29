@@ -14,7 +14,7 @@ class BestBooks extends React.Component {
   
 
   componentDidMount() {
-    let bookURl = `http://localhost:3001/books?email=cwrarig20@gmail.com`;
+    let bookURl = `http://localhost:3001/books?email=${this.props.email}`;
     
     axios.get(bookURl)
     .then(bookObj => bookObj.data)
@@ -32,7 +32,7 @@ class BestBooks extends React.Component {
     this.setState({ books: [...this.state.books, postRes.data],
                   newBook:null,
                   user: '1', });
-    
+             this.componentDidMount();
   }
 
   render() {
