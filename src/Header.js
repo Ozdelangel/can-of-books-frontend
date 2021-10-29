@@ -15,7 +15,7 @@ class Header extends React.Component {
         <Navbar.Brand>My Favorite Books</Navbar.Brand>
         <NavItem><Link to="/" className="nav-link">Home</Link></NavItem>
         {this.props.user && <NavItem><Link to="/profile" className="nav-link">Profile</Link></NavItem>}
-        {this.props.user && <NavItem><Button>Add Book</Button></NavItem>}
+        {this.props.user && <NavItem><Button onClick={this.props.newbookHandler}>Add Book</Button></NavItem>}
         <NavItem>
           <LoginButton onLogin={this.props.onLogin} loginForm={this.props.loginForm} email={this.props.email} userName={this.props.userName}/>
         </NavItem>

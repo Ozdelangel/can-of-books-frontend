@@ -26,10 +26,13 @@ class BestBooks extends React.Component {
 
   handlePost = async (newBook) => {
     console.log(newBook);
-    let URL = `${process.env.REACT_APP_SERVER}/books`;
+    let URL = `http://localhost:3001/books?email=${newBook.email}&title=${newBook.title}&description=${newBook.description}&status=${newBook.status}`;
     let postRes = await axios.post(URL, newBook);
     console.log('postRes', postRes.data);
-    this.setState({ books: [...this.state.books, postRes.data] });
+    this.setState({ books: [...this.state.books, postRes.data],
+                  newBook:null,
+                  user: '1', });
+    
   }
 
   render() {
@@ -39,7 +42,7 @@ class BestBooks extends React.Component {
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-        <AddBook email={this.state.email} handlePost={this.handlePost} />
+        {this.props.newBook && <AddBook email={this.props.email} handlePost={this.handlePost} newBook={this.props.newBook}/>}
         
         <Carousel>
         {this.state.books.length > 0 ?  this.state.books.map(item => 
