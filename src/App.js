@@ -5,13 +5,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import BestBooks from './BestBooks.js';
 import Profile from './Profile';
 import LoginForm from './LoginForm';
-import AddBook from './AddBook';
+
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
-import axios from 'axios';
+
 
 class App extends React.Component {
 
@@ -21,7 +21,8 @@ class App extends React.Component {
       user: null,
       loginForm: null,
       email: '',
-      userName:''
+      userName:'',
+      newBook: null,
     }
   }
 
@@ -39,7 +40,7 @@ class App extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log('click');
+    console.log('submitted');
     this.setState({
       email: event.target.email.value,
       userName: event.target.name.value,
@@ -48,27 +49,32 @@ class App extends React.Component {
         })
   }
 
+  newbookHandler = () => {
+    this.setState({
+      newBook: '1',
+    })
+    console.log('click');
+  }
+
   render() {
     console.log(this.state);
     return (
       
       <>
         <Router>
-          <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler} loginForm={this.state.loginForm} email={this.state.email} userName={this.state.userName}/>
+          <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler} loginForm={this.state.loginForm} email={this.state.email} userName={this.state.userName} newbookHandler={this.newbookHandler}/>
           {this.state.loginForm && <LoginForm handleSubmit={this.handleSubmit} />}
           <Switch>
             <Route exact path="/">
-              {this.state.user && <BestBooks/>}
+              {this.state.user && <BestBooks newbookHandler={this.newbookHandler} email={this.state.email} newBook={this.state.newBook} user={this.state.user}/>}
             </Route>
             <Route exact path="/profile">
               <Profile email={this.state.email} userName={this.state.userName}/>
             </Route>
               {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
-            <Route exact path="/">
-              <AddBook email={this.state.email} />
-            </Route>
+            
+
           </Switch>
-          
           <Footer />
         </Router>
       </>
