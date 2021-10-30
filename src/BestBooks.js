@@ -2,6 +2,7 @@ import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import axios from 'axios';
 import AddBook from './AddBook';
+import { Button } from 'react-bootstrap';
 
 
 class BestBooks extends React.Component {
@@ -32,12 +33,24 @@ class BestBooks extends React.Component {
     this.setState({ books: [...this.state.books, postRes.data],
                   newBook:null,
                   user: '1', });
-             this.componentDidMount();
+    this.componentDidMount();
+  }
+
+  handleDelete = async (bookId) =>{
+    let URL = `http://localhost:3001/books?id=${bookId}`
+    console.log(bookId);
+    let deletedBook = await axios.delete(URL);
+    let deletedBookData = deletedBook.data;
+    console.log(deletedBookData);
+    let copyState = this.state.books
+    let filteredData = copyState.filter((item) => item._id !== deletedBookData._id);
+    this.setState({books: filteredData});
   }
 
   render() {
 
     /* TODO: render user's books in a Carousel */
+
     console.log(this.state.books);
     return (
       <>
@@ -56,6 +69,7 @@ class BestBooks extends React.Component {
             <h3>{item.title}</h3>
             <p>{item.description}</p>
             <h5>{item.email}</h5>
+            <Button variant="danger" onClick={() => {this.handleDelete(item._id)}}>Delete</Button>
           </Carousel.Caption>
           </Carousel.Item>
                           
