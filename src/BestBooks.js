@@ -9,7 +9,8 @@ class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      updatedObj: {}
     }
   }
   
@@ -37,7 +38,7 @@ class BestBooks extends React.Component {
   }
 
   handleDelete = async (bookId) =>{
-    let URL = `http://localhost:3001/books?id=${bookId}`
+    let URL = `http://localhost:3001/books/${bookId}`
     console.log(bookId);
     let deletedBook = await axios.delete(URL);
     let deletedBookData = deletedBook.data;
@@ -45,6 +46,29 @@ class BestBooks extends React.Component {
     let copyState = this.state.books
     let filteredData = copyState.filter((item) => item._id !== deletedBookData._id);
     this.setState({books: filteredData});
+  }
+
+  handleUpdate = async (itemObj) =>{
+    console.log(itemObj);
+    let URL = `http://localhost:3001/books/${itemObj._id}`;
+    
+    let putObj = {
+      title: itemObj.title,
+      description: itemObj.description,
+      status: itemObj.status,
+      email: itemObj.email
+    }
+    let updateRes = await axios.put(URL, putObj);
+    let updatedData = updateRes.data;
+    console.log(updatedData);
+    let copyState = this.state.books.map((books, idx) => {
+      if(books._id === updatedData._id) return updatedData;
+      else {return books}
+    })
+    this.setState({
+      book: copyState
+    })
+
   }
 
   render() {
@@ -70,6 +94,7 @@ class BestBooks extends React.Component {
             <p>{item.description}</p>
             <h5>{item.email}</h5>
             <Button variant="danger" onClick={() => {this.handleDelete(item._id)}}>Delete</Button>
+            <Button onClick={() => {this.handleUpdate(item._id)}}>Update</Button>
           </Carousel.Caption>
           </Carousel.Item>
                           
