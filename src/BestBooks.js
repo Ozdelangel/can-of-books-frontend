@@ -2,6 +2,7 @@ import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import axios from 'axios';
 import AddBook from './AddBook';
+import UpdateBook from './UpdateBook';
 import { Button } from 'react-bootstrap';
 
 
@@ -10,7 +11,7 @@ class BestBooks extends React.Component {
     super(props);
     this.state = {
       books: [],
-      updatedObj: {}
+      
     }
   }
   
@@ -32,7 +33,7 @@ class BestBooks extends React.Component {
     let postRes = await axios.post(URL, newBook);
     console.log('postRes', postRes.data);
     this.setState({ books: [...this.state.books, postRes.data],
-                  newBook:null,
+                  newBook:false,
                   user: '1', });
     this.componentDidMount();
   }
@@ -66,10 +67,17 @@ class BestBooks extends React.Component {
       else {return books}
     })
     this.setState({
-      book: copyState
+      book: copyState,
     })
+    this.componentDidMount();
 
   }
+
+  runUpdateForm = (item) => {
+    this.props.updateformHandler(item)
+  }
+
+
 
   render() {
 
@@ -79,8 +87,8 @@ class BestBooks extends React.Component {
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-        {this.props.newBook && <AddBook email={this.props.email} handlePost={this.handlePost} newBook={this.props.newBook}/>}
-        
+        {this.props.newBook && <AddBook email={this.props.email} closeModal={this.props.closeModal} modalState={this.props.modalState} handlePost={this.handlePost} newBook={this.props.newBook}/>}
+         {this.props.updateForm && <UpdateBook showUpdate={this.props.showUpdate} closeUpdate={this.props.closeUpdate} handleUpdate={this.handleUpdate} updatedObj={this.props.updatedObj}/>}
         <Carousel>
         {this.state.books.length > 0 ?  this.state.books.map(item => 
           <Carousel.Item key ={item._id}>
@@ -94,7 +102,7 @@ class BestBooks extends React.Component {
             <p>{item.description}</p>
             <h5>{item.email}</h5>
             <Button variant="danger" onClick={() => {this.handleDelete(item._id)}}>Delete</Button>
-            <Button onClick={() => {this.handleUpdate(item._id)}}>Update</Button>
+            <Button onClick={() => {this.runUpdateForm(item)}}>Update</Button>
           </Carousel.Caption>
           </Carousel.Item>
                           

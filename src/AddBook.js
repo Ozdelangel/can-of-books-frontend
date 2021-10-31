@@ -16,7 +16,7 @@ class AddBook extends React.Component {
       email: this.props.email,
       
     }
-    
+    this.props.closeModal();
     this.props.handlePost(newObj);
     
   }
@@ -24,6 +24,7 @@ class AddBook extends React.Component {
   render() {
     return(
       <>
+      <Modal show={this.props.modalState}>
         <Modal.Dialog>
           <Modal.Body>
             <Form onSubmit={this.handleSubmit}>
@@ -34,8 +35,8 @@ class AddBook extends React.Component {
               <Form.Group controlId="exampleForm.SelectCustom">
               <Form.Label>Status</Form.Label>
               <Form.Control as="select" custom id="status">
-                <option>AVAIABLE</option>
-                <option>NOT AVAIABLE</option>
+                <option>AVAILABLE</option>
+                <option>NOT AVAILABLE</option>
               </Form.Control>
             </Form.Group>
               <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
@@ -46,7 +47,7 @@ class AddBook extends React.Component {
             </Form>
           </Modal.Body>
         </Modal.Dialog>
-      
+        </Modal>
       </>
     )
   }

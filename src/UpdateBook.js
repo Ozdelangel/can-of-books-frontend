@@ -10,43 +10,46 @@ class UpdateBook extends React.Component {
     console.log('click');
     
     let newObj = {
-      title: event.target.title.value,
-      description: event.target.description.value,
-      status: event.target.status.value,
-      email: this.props.email,
-      
+      title: (event.target.title.value) ? event.target.title.value : this.props.updatedObj.name,
+      description: (event.target.description.value) ? event.target.description.value : this.props.updatedObj.description,
+      status: (event.target.status.value) ? event.target.status.value : this.props.updatedObj.status,
+      email: this.props.updatedObj.email,
+      _id: this.props.updatedObj._id
     }
-    
+    this.props.closeUpdate();
     this.props.handleUpdate(newObj);
     
   }
 
+  
+
   render() {
     return(
       <>
+      <Modal show={this.props.showUpdate}>
         <Modal.Dialog>
           <Modal.Body>
             <Form onSubmit={this.handleSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Enter Book Title</Form.Label>
-                <Form.Control type="text" placeholder="Enter Title" id="title" />
+                <Form.Label>Update Book Title</Form.Label>
+                <Form.Control type="text" defaultValue={this.props.updatedObj.title} id="title" />
               </Form.Group>
               <Form.Group controlId="exampleForm.SelectCustom">
-              <Form.Label>Status</Form.Label>
-              <Form.Control as="select" custom id="status">
-                <option>AVAIABLE</option>
-                <option>NOT AVAIABLE</option>
+              <Form.Label>Update Status</Form.Label>
+              <Form.Control as="select" custom id="status" defaultValue={this.props.updatedObj.status} >
+                <option>AVAILABLE</option>
+                <option>NOT AVAILABLE</option>
               </Form.Control>
             </Form.Group>
               <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                <Form.Label>Book Description</Form.Label>
-                <Form.Control as="textarea" rows={3} id="description" />
+                <Form.Label>Update Book Description</Form.Label>
+                <Form.Control as="textarea" rows={3} id="description" defaultValue={this.props.updatedObj.description}  />
               </Form.Group>
               <Button variant="primary" type="submit">Submit</Button>
             </Form>
           </Modal.Body>
         </Modal.Dialog>
-      
+        </Modal>
       </>
     )
   }
