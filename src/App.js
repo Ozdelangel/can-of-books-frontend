@@ -18,11 +18,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      updatedObj: {},
       user: null,
       loginForm: null,
       email: '',
       userName:'',
-      newBook: null,
+      newBook: false,
+      modalState: false,
+      showUpdate: false,
+      updateForm: false,
     }
   }
 
@@ -51,9 +55,31 @@ class App extends React.Component {
 
   newbookHandler = () => {
     this.setState({
-      newBook: '1',
+      newBook: true,
+      modalState:true
     })
     console.log('click');
+  }
+
+  closeModal = () => {
+    this.setState({
+      modalState: false,
+    })
+  }
+
+  updateformHandler = (itemObj) => {
+    this.setState({
+      showUpdate: true,
+      updateForm: true,
+      updatedObj: itemObj,
+    })
+    console.log(itemObj);
+  }
+
+  closeUpdate = () => {
+    this.setState({
+      showUpdate: false,
+    })
   }
 
   render() {
@@ -66,14 +92,13 @@ class App extends React.Component {
           {this.state.loginForm && <LoginForm handleSubmit={this.handleSubmit} />}
           <Switch>
             <Route exact path="/">
-              {this.state.user && <BestBooks newbookHandler={this.newbookHandler} email={this.state.email} newBook={this.state.newBook} user={this.state.user}/>}
+              {this.state.user && <BestBooks updatedObj={this.state.updatedObj} updateForm={this.state.updateForm} showUpdate={this.state.showUpdate} closeUpdate={this.closeUpdate} updateformHandler={this.updateformHandler} closeModal={this.closeModal}  modalState={this.state.modalState} newbookHandler={this.newbookHandler} email={this.state.email} newBook={this.state.newBook} user={this.state.user}/>}
             </Route>
             <Route exact path="/profile">
               <Profile email={this.state.email} userName={this.state.userName}/>
             </Route>
               {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
             
-
           </Switch>
           <Footer />
         </Router>
