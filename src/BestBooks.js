@@ -4,6 +4,7 @@ import axios from 'axios';
 import AddBook from './AddBook';
 import UpdateBook from './UpdateBook';
 import { Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 
 class BestBooks extends React.Component {
@@ -89,26 +90,27 @@ class BestBooks extends React.Component {
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
         {this.props.newBook && <AddBook email={this.props.email} closeModal={this.props.closeModal} modalState={this.props.modalState} handlePost={this.handlePost} newBook={this.props.newBook}/>}
          {this.props.updateForm && <UpdateBook showUpdate={this.props.showUpdate} closeUpdate={this.props.closeUpdate} handleUpdate={this.handleUpdate} updatedObj={this.props.updatedObj}/>}
-        <Carousel>
-        {this.state.books.length > 0 ?  this.state.books.map(item => 
-          <Carousel.Item key ={item._id}>
-            <img
-              className="d-block w-100"
-              src='https://via.placeholder.com/150'
-              alt="First slide"
-            />
-          <Carousel.Caption>
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-            <h5>{item.email}</h5>
-            <Button variant="danger" onClick={() => {this.handleDelete(item._id)}}>Delete</Button>
-            <Button onClick={() => {this.runUpdateForm(item)}}>Update</Button>
-          </Carousel.Caption>
-          </Carousel.Item>
-                          
-                        )
-          : <h2>No Books Located</h2>}
-        </Carousel>
+        <Container>
+          <Carousel className="w-responsive text-center mx-auto p-3 mt-2">
+            {this.state.books.length > 0 ?  this.state.books.map(item => 
+              <Carousel.Item key ={item._id}>
+                <img
+                className="w-75"
+                src='https://via.placeholder.com/150'
+                alt="First slide"
+              />
+            <Carousel.Caption>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+              <h5>{item.email}</h5>
+              <Button variant="danger" onClick={() => {this.handleDelete(item._id)}}>Delete</Button>
+              <Button onClick={() => {this.runUpdateForm(item)}}>Update</Button>
+            </Carousel.Caption>
+            </Carousel.Item>
+            )
+            : <h2>No Books Located</h2>}
+          </Carousel>
+        </Container>
       </>
     )
   }
