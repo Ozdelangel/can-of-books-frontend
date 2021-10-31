@@ -1,5 +1,5 @@
 # Can of Books
-//change for PR
+
 **Author**: Anthony Turinski, Chris Rarig, and Osborn Del Angel
 **Version**: 1.0.0
 
