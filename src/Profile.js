@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { withAuth0 } from '@auth0/auth0-react'; 
 
 class Profile extends Component {
 
@@ -8,11 +9,11 @@ class Profile extends Component {
     return( 
       <>
     <img src='https://via.placeholder.com/150'alt="Pic"/>
-    <p>name: {this.props.userName}</p>
-    <p>email:{this.props.email}</p>
+    <p> Name: {this.props.auth0.user.name} </p>
+    <p> Email: {this.props.auth0.user.email}</p>
     </>
     )
   }
 };
 
-export default Profile;
+export default withAuth0(Profile);

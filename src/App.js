@@ -91,6 +91,7 @@ class App extends React.Component {
         <Router>
           <Header user={this.state.user} onLogout={this.logoutHandler} onLogin={this.loginHandler} loginForm={this.state.loginForm} email={this.state.email} userName={this.state.userName} newbookHandler={this.newbookHandler}/>
           {this.state.loginForm && <LoginForm handleSubmit={this.handleSubmit} />}
+          {this.props.auth0.isAuthenticated ? <h2>Welcome {this.props.auth0.user.name}!!</h2>:<h2>Please Login</h2>}
           <Switch>
             <Route exact path="/">
             {this.props.auth0.isAuthenticated ? <BestBooks updatedObj={this.state.updatedObj} updateForm={this.state.updateForm} showUpdate={this.state.showUpdate} closeUpdate={this.closeUpdate} updateformHandler={this.updateformHandler} closeModal={this.closeModal}  modalState={this.state.modalState} newbookHandler={this.newbookHandler} email={this.state.email} newBook={this.state.newBook} user={this.state.user}/>
