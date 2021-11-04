@@ -22,6 +22,8 @@ This application displays Books a user has stored in the application
 10-27-2021 Setup login/logout button functions and profile page
 10-27-2021 Setup Add a book function
 10-28-2021 Setup Delete function 
+10-30-2021 Setup Update function
+11-3-2021 Setup Auth O
 
 ## Estimates
 
@@ -85,7 +87,20 @@ This application displays Books a user has stored in the application
 
     - *Actual time needed to complete*: 4hrs
 
+7. *Name of feature*: Auth 0
+
+    - *Estimate of time needed to complete*: 2hr
+
+    - *Start time*: 11-3-2021 8:30pm
+
+    - *Finish time*: 10-30-2021 9:30pm
+
+    - *Actual time needed to complete*: 1hr
+
 ## Credit and Collaborations
+[Git Hub Repo Front End](https://github.com/Ozdelangel/can-of-books-frontend)
+
+[Git Hub Repo Back End](https://github.com/chrisrarig1/can-of-books-backend)
 
 ![WRRC](WRRCCan.png)
 
