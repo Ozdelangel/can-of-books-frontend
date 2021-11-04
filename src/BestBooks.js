@@ -4,6 +4,7 @@ import axios from 'axios';
 import AddBook from './AddBook';
 import UpdateBook from './UpdateBook';
 import { Button } from 'react-bootstrap';
+import { withAuth0 } from '@auth0/auth0-react'; 
 
 
 class BestBooks extends React.Component {
@@ -16,10 +17,20 @@ class BestBooks extends React.Component {
   }
   
 
-  componentDidMount() {
-    let bookURl = `http://localhost:3001/books?email=${this.props.email}`;
+ async componentDidMount() {
+
+  let getIdToken = await this.props.auth0.getIdTokenClaims();
+  let jwt = getIdToken.__raw
+
+  console.log(jwt);
+  let config = {
+    headers: { "Authorization": `Bearer ${jwt}` }
+  }
+
+
+    let bookURl = `http://localhost:3001/books`;
     
-    axios.get(bookURl)
+    axios.get(bookURl, config)
     .then(bookObj => bookObj.data)
     .then(data => this.setState({books:data}))
   
@@ -29,7 +40,8 @@ class BestBooks extends React.Component {
 
   handlePost = async (newBook) => {
     console.log(newBook);
-    let URL = `http://localhost:3001/books?email=${newBook.email}&title=${newBook.title}&description=${newBook.description}&status=${newBook.status}`;
+    // let URL = `http://localhost:3001/books?email=${newBook.email}&title=${newBook.title}&description=${newBook.description}&status=${newBook.status}`;
+    let URL = `http://localhost:3001/books`
     let postRes = await axios.post(URL, newBook);
     console.log('postRes', postRes.data);
     this.setState({ books: [...this.state.books, postRes.data],
@@ -114,4 +126,4 @@ class BestBooks extends React.Component {
   }
 }
 
-export default BestBooks;
+export default withAuth0(BestBooks);

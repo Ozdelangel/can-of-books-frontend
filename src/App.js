@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import BestBooks from './BestBooks.js';
 import Profile from './Profile';
 import LoginForm from './LoginForm';
+import { withAuth0 } from '@auth0/auth0-react';
 
 import {
   BrowserRouter as Router,
@@ -92,7 +93,8 @@ class App extends React.Component {
           {this.state.loginForm && <LoginForm handleSubmit={this.handleSubmit} />}
           <Switch>
             <Route exact path="/">
-              {this.state.user && <BestBooks updatedObj={this.state.updatedObj} updateForm={this.state.updateForm} showUpdate={this.state.showUpdate} closeUpdate={this.closeUpdate} updateformHandler={this.updateformHandler} closeModal={this.closeModal}  modalState={this.state.modalState} newbookHandler={this.newbookHandler} email={this.state.email} newBook={this.state.newBook} user={this.state.user}/>}
+            {this.props.auth0.isAuthenticated ? <BestBooks updatedObj={this.state.updatedObj} updateForm={this.state.updateForm} showUpdate={this.state.showUpdate} closeUpdate={this.closeUpdate} updateformHandler={this.updateformHandler} closeModal={this.closeModal}  modalState={this.state.modalState} newbookHandler={this.newbookHandler} email={this.state.email} newBook={this.state.newBook} user={this.state.user}/>
+            : ''}
             </Route>
             <Route exact path="/profile">
               <Profile email={this.state.email} userName={this.state.userName}/>
@@ -108,4 +110,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withAuth0(App); 
