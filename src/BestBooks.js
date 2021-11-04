@@ -18,6 +18,7 @@ class BestBooks extends React.Component {
     }
   }
   
+  
 
  async componentDidMount() {
 
@@ -41,10 +42,15 @@ class BestBooks extends React.Component {
   /* TODO: Make a GET request to your API to fetch books for the logged in user  */
 
   handlePost = async (newBook) => {
+    let getIdToken = await this.props.auth0.getIdTokenClaims();
+    let jwt = getIdToken.__raw
+    let config = {
+      headers: { "Authorization": `Bearer ${jwt}` }
+    }
     console.log(newBook);
     // let URL = `http://localhost:3001/books?email=${newBook.email}&title=${newBook.title}&description=${newBook.description}&status=${newBook.status}`;
     let URL = `http://localhost:3001/books`
-    let postRes = await axios.post(URL, newBook);
+    let postRes = await axios.post(URL, newBook, config);
     console.log('postRes', postRes.data);
     this.setState({ books: [...this.state.books, postRes.data],
                   newBook:false,
@@ -53,9 +59,14 @@ class BestBooks extends React.Component {
   }
 
   handleDelete = async (bookId) =>{
+    let getIdToken = await this.props.auth0.getIdTokenClaims();
+    let jwt = getIdToken.__raw
+    let config = {
+      headers: { "Authorization": `Bearer ${jwt}` }
+    }
     let URL = `http://localhost:3001/books/${bookId}`
     console.log(bookId);
-    let deletedBook = await axios.delete(URL);
+    let deletedBook = await axios.delete(URL,config);
     let deletedBookData = deletedBook.data;
     console.log(deletedBookData);
     let copyState = this.state.books
@@ -64,6 +75,11 @@ class BestBooks extends React.Component {
   }
 
   handleUpdate = async (itemObj) =>{
+    let getIdToken = await this.props.auth0.getIdTokenClaims();
+    let jwt = getIdToken.__raw
+    let config = {
+      headers: { "Authorization": `Bearer ${jwt}` }
+    }
     console.log(itemObj);
     let URL = `http://localhost:3001/books/${itemObj._id}`;
     
@@ -73,7 +89,7 @@ class BestBooks extends React.Component {
       status: itemObj.status,
       email: itemObj.email
     }
-    let updateRes = await axios.put(URL, putObj);
+    let updateRes = await axios.put(URL, putObj,config);
     let updatedData = updateRes.data;
     console.log(updatedData);
     let copyState = this.state.books.map((books, idx) => {
