@@ -26,6 +26,7 @@ class BestBooks extends React.Component {
   let jwt = getIdToken.__raw
 
   console.log(jwt);
+  console.log(this.props.auth0);
   let config = {
     headers: { "Authorization": `Bearer ${jwt}` }
   }
@@ -116,7 +117,7 @@ class BestBooks extends React.Component {
     console.log(this.state.books);
     return (
       <>
-        <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
+        
         {this.props.newBook && <AddBook email={this.props.email} closeModal={this.props.closeModal} modalState={this.props.modalState} handlePost={this.handlePost} newBook={this.props.newBook}/>}
          {this.props.updateForm && <UpdateBook showUpdate={this.props.showUpdate} closeUpdate={this.props.closeUpdate} handleUpdate={this.handleUpdate} updatedObj={this.props.updatedObj}/>}
         <Container>
